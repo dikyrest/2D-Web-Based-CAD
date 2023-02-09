@@ -33,6 +33,10 @@ function mod (n, m) {
     return ((n % m) + m) % m;
 }
 
+function rgbToHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
 function getAllVertices() {
     let allVertices = [];
 
@@ -137,4 +141,32 @@ function getNearestCenter(x, y) {
     }
 
     return minIndex;
+}
+
+function showVertexProperties() {
+    let shapeIndex = nearestVertexIndex[0];
+    let vertexIndex = nearestVertexIndex[1];
+
+    let x = allShapes[shapeIndex].vertices[vertexIndex][0];
+    let y = allShapes[shapeIndex].vertices[vertexIndex][1];
+
+    let r = allShapes[shapeIndex].colors[vertexIndex][0];
+    let g = allShapes[shapeIndex].colors[vertexIndex][1];
+    let b = allShapes[shapeIndex].colors[vertexIndex][2];
+
+    let vertexProperties = document.getElementById("properties-container");
+    vertexProperties.innerHTML = "Shape: " + allShapes[shapeIndex].type + "<br>Vertex: " + vertexIndex + "<br>X: " + x + "<br>Y: " + y;
+    vertexProperties.innerHTML += "<br>Color: <input onchange='changeVertexColor()' type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
+}
+
+function changeVertexColor() {
+    let shapeIndex = nearestVertexIndex[0];
+    let vertexIndex = nearestVertexIndex[1];
+
+    let color = document.getElementById("vertex-color").value;
+    let r = parseInt(color.substring(1, 3), 16);
+    let g = parseInt(color.substring(3, 5), 16);
+    let b = parseInt(color.substring(5, 7), 16);
+
+    allShapes[shapeIndex].colors[vertexIndex] = [r/255, g/255, b/255, 1];
 }

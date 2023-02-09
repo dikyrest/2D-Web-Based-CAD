@@ -47,8 +47,8 @@ let allColors = [];
 let allShapes = [];
 let allCenters = [];
 
-const button_container = document.getElementsByClassName('create-button-container');
-const buttons = button_container[0].getElementsByTagName('button');
+const button_container = document.getElementById('create-button-container');
+const buttons = button_container.getElementsByTagName('button');
 
 /*
  * Possible values:
@@ -63,11 +63,11 @@ let isDrawing = "";
 let isDragging = "";
 let isMoving = "";
 
-/*
- * [shapeIndex, vertexIndex] for dragging
- * shapeIndex for moving
- */
-let nearestIndex = [];
+// [shapeIndex, vertexIndex]
+let nearestVertexIndex = [];
+
+// shapeIndex
+let nearestCenterIndex = -1;
 
 render();
 
@@ -94,25 +94,37 @@ canvas.addEventListener('mousedown', function(e) {
         makeRectangle(x, y);
         isDrawing = "rectangle";
     } else if (isNearVertex(x, y)) {
-        nearestIndex = getNearestVertex(x, y);
-        isDragging = allShapes[nearestIndex[0]].type;
+        nearestVertexIndex = getNearestVertex(x, y);
+        isDragging = allShapes[nearestVertexIndex[0]].type;
     } else if (isNearCenter(x, y)) {
-        nearestIndex = getNearestCenter(x, y);
-        isMoving = allShapes[nearestIndex].type;
+        nearestCenterIndex = getNearestCenter(x, y);
+        isMoving = allShapes[nearestCenterIndex].type;
     }
 });
 
 canvas.addEventListener('mouseup', function() {
     if (isOnCreate) {
         isDrawing = "";
-        console.log(allVertices);
+        console.log(allShapes);
     } else if (isDragging) {
-        nearestIndex = [];
+        nearestVertexIndex = [];
         isDragging = "";
     } else if (isMoving) {
-        nearestIndex = [];
+        nearestCenterIndex = -1;
         isMoving = "";
     }
+});
+
+canvas.addEventListener('click', function(e) {
+    let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
+    let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
+
+    if (isNearVertex(x, y)) {
+        nearestVertexIndex = getNearestVertex(x, y);
+        showVertexProperties();
+    }
+
+    console.log(nearestVertexIndex);
 });
 
 function render() {
