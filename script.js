@@ -39,9 +39,6 @@ gl.attachShader(program, fShader);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-const buttonContainer = document.getElementsByClassName('create-button-container');
-const buttons = buttonContainer[0].getElementsByTagName('button');
-
 const vBuffer = gl.createBuffer();
 const cBuffer = gl.createBuffer();
 
@@ -49,13 +46,24 @@ var allVertices = [];
 var allColors = [];
 var allShapes = [];
 
-var isOnCreate = false;
-var isDrawing = false;
+const buttonContainer = document.getElementsByClassName('create-button-container');
+const buttons = buttonContainer[0].getElementsByTagName('button');
+
+var isOnCreateLine = false;
+var isOnCreateSquare = false;
+var isOnCreateRectangle = false;
+var isOnCreatePolygon = false;
+var isOnCreatePolygonStrip = false;
+var isDrawingLine = false;
+var isDrawingSquare = false;
+var isDrawingRectangle = false;
+var isDrawingPolygon = false;
+var isDrawingPolygonStrip = false;
 
 render();
 
 canvas.addEventListener('mousemove', function(e) {
-    if (isDrawing) {
+    if (isDrawingRectangle) {
         let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
         let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
@@ -64,19 +72,19 @@ canvas.addEventListener('mousemove', function(e) {
 });
 
 canvas.addEventListener('mousedown', function(e) {
-    if (isOnCreate) {
+    if (isOnCreateRectangle) {
         let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
         let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
         makeRectangle(x, y);
 
-        isDrawing = true;
+        isDrawingRectangle = true;
     }
 });
 
 canvas.addEventListener('mouseup', function(e) {
-    if (isOnCreate) {
-        isDrawing = false;
+    if (isOnCreateRectangle) {
+        isDrawingRectangle = false;
 
         console.log(allVertices);
     }
