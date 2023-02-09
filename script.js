@@ -42,9 +42,9 @@ gl.useProgram(program);
 const vBuffer = gl.createBuffer();
 const cBuffer = gl.createBuffer();
 
-var allVertices = [];
-var allColors = [];
-var allShapes = [];
+let allVertices = [];
+let allColors = [];
+let allShapes = [];
 
 const buttonContainer = document.getElementsByClassName('create-button-container');
 const buttons = buttonContainer[0].getElementsByTagName('button');
@@ -112,12 +112,12 @@ function render() {
 
     let j = 0;
     for (let i=0; i<allShapes.length; i++) {
-        if (allShapes[i].type == 'rectangle') {
+        if (allShapes[i].type === 'rectangle') {
             gl.drawArrays(gl.POINTS, j, 4);
             gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
             j += 4;
         }
-    };
+    }
 
     window.requestAnimationFrame(render);
 }

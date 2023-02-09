@@ -24,7 +24,7 @@ function makeRectangle(x, y) {
         colors.push([0,0,0,1]);
     }
 
-    var rectangle = new Shape("rectangle", vertices, colors);
+    let rectangle = new Shape("rectangle", vertices, colors);
     allShapes.push(rectangle);
 }
 
