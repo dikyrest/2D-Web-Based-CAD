@@ -104,7 +104,7 @@ function render() {
 
     let j = 0;
     for (let i=0; i<allShapes.length; i++) {
-        if (allShapes[i].type == 'rectangle') {
+        if (allShapes[i].type === 'rectangle') {
             gl.drawArrays(gl.POINTS, j, 4);
             gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
             j += 4;
