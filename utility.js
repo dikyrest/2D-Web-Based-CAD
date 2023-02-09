@@ -52,3 +52,17 @@ function getAllColors() {
 
     return allColors;
 }
+
+function disableButtonsExcept(buttonId) {
+    for (button of buttons) {
+        if (button.id != buttonId) {
+            button.disabled = true;
+        }
+    }
+}
+
+function enableAllButtons() {
+    for (button of buttons) {
+        button.disabled = false;
+    }
+}

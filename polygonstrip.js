@@ -5,18 +5,12 @@ polygonstripbtn.addEventListener('click', function() {
         isOnCreate = "";
         polygonstripbtn.textContent = 'Polygon Strip';
         polygonstripbtn.removeAttribute('style');
-        linebtn.disabled = false;
-        squarebtn.disabled = false;
-        rectanglebtn.disabled = false;
-        polygonbtn.disabled = false;
+        enableAllButtons();
     } else {
         isOnCreate = "poly-strip";
         polygonstripbtn.textContent = 'Save';
         polygonstripbtn.style.backgroundColor = '#808080';
         polygonstripbtn.style.color = '#ffffff';
-        linebtn.disabled = true;
-        squarebtn.disabled = true;
-        rectanglebtn.disabled = true;
-        polygonbtn.disabled = true;
+        disableButtonsExcept('create-polygon-strip');
     }
 });

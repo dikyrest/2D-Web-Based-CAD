@@ -39,15 +39,15 @@ gl.attachShader(program, fShader);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-const buttonContainer = document.getElementsByClassName('create-button-container');
-const buttons = buttonContainer[0].getElementsByTagName('button');
-
 const vBuffer = gl.createBuffer();
 const cBuffer = gl.createBuffer();
 
 let allVertices = [];
 let allColors = [];
 let allShapes = [];
+
+const buttonContainer = document.getElementsByClassName('create-button-container');
+const buttons = buttonContainer[0].getElementsByTagName('button');
 
 /*
  * Possible values:
