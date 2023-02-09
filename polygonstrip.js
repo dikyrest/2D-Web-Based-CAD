@@ -1,16 +1,16 @@
-const polygonstripbtn = document.getElementById('create-polygon-strip');
+const poly_strip_button = document.getElementById('create-polygon-strip');
 
-polygonstripbtn.addEventListener('click', function() {
+poly_strip_button.addEventListener('click', function() {
     if (isOnCreate === "poly-strip") {
         isOnCreate = "";
-        polygonstripbtn.textContent = 'Polygon Strip';
-        polygonstripbtn.removeAttribute('style');
+        poly_strip_button.textContent = 'Polygon Strip';
+        poly_strip_button.removeAttribute('style');
         enableAllButtons();
     } else {
         isOnCreate = "poly-strip";
-        polygonstripbtn.textContent = 'Save';
-        polygonstripbtn.style.backgroundColor = '#808080';
-        polygonstripbtn.style.color = '#ffffff';
+        poly_strip_button.textContent = 'Save';
+        poly_strip_button.style.backgroundColor = '#808080';
+        poly_strip_button.style.color = '#ffffff';
         disableButtonsExcept('create-polygon-strip');
     }
 });

@@ -1,16 +1,16 @@
-squarebtn = document.getElementById("create-square");
+square_button = document.getElementById("create-square");
 
-squarebtn.addEventListener("click", function () {
+square_button.addEventListener("click", function () {
     if (isOnCreate === "square") {
         isOnCreate = "";
-        squarebtn.textContent = "Square";
-        squarebtn.removeAttribute("style");
+        square_button.textContent = "Square";
+        square_button.removeAttribute("style");
         enableAllButtons();
     } else {
         isOnCreate = "square";
-        squarebtn.textContent = "Save";
-        squarebtn.style.backgroundColor = "#808080";
-        squarebtn.style.color = "#ffffff";
+        square_button.textContent = "Save";
+        square_button.style.backgroundColor = "#808080";
+        square_button.style.color = "#ffffff";
         disableButtonsExcept("create-square");
     }
 });

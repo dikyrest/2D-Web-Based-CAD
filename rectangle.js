@@ -1,16 +1,16 @@
-const rectanglebtn = document.getElementById('create-rectangle');
+const rectangle_button = document.getElementById('create-rectangle');
 
-rectanglebtn.addEventListener('click', function() {
+rectangle_button.addEventListener('click', function() {
     if (isOnCreate === "rectangle") {
         isOnCreate = "";
-        rectanglebtn.textContent = 'Rectangle';
-        rectanglebtn.removeAttribute('style');
+        rectangle_button.textContent = 'Rectangle';
+        rectangle_button.removeAttribute('style');
         enableAllButtons();
     } else {
         isOnCreate = "rectangle";
-        rectanglebtn.textContent = 'Save';
-        rectanglebtn.style.backgroundColor = '#808080';
-        rectanglebtn.style.color = '#ffffff';
+        rectangle_button.textContent = 'Save';
+        rectangle_button.style.backgroundColor = '#808080';
+        rectangle_button.style.color = '#ffffff';
         disableButtonsExcept('create-rectangle');
     }
 });

@@ -1,16 +1,16 @@
-const polygonbtn = document.getElementById('create-polygon');
+const polygon_button = document.getElementById('create-polygon');
 
-polygonbtn.addEventListener('click', function() {
+polygon_button.addEventListener('click', function() {
     if (isOnCreate === "polygon") {
         isOnCreate = "";
-        polygonbtn.textContent = 'Polygon';
-        polygonbtn.removeAttribute('style');
+        polygon_button.textContent = 'Polygon';
+        polygon_button.removeAttribute('style');
         enableAllButtons();
     } else {
         isOnCreate = "polygon";
-        polygonbtn.textContent = 'Save';
-        polygonbtn.style.backgroundColor = '#808080';
-        polygonbtn.style.color = '#ffffff';
+        polygon_button.textContent = 'Save';
+        polygon_button.style.backgroundColor = '#808080';
+        polygon_button.style.color = '#ffffff';
         disableButtonsExcept('create-polygon');
     }
 });

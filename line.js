@@ -1,16 +1,16 @@
-const linebtn = document.getElementById('create-line');
+const line_button = document.getElementById('create-line');
 
-linebtn.addEventListener('click', function() {
+line_button.addEventListener('click', function() {
     if (isOnCreate === "line") {
         isOnCreate = "";
-        linebtn.textContent = 'Line';
-        linebtn.removeAttribute('style');
+        line_button.textContent = 'Line';
+        line_button.removeAttribute('style');
         enableAllButtons();
     } else {
         isOnCreate = "line";
-        linebtn.textContent = 'Save';
-        linebtn.style.backgroundColor = '#808080';
-        linebtn.style.color = '#ffffff';
+        line_button.textContent = 'Save';
+        line_button.style.backgroundColor = '#808080';
+        line_button.style.color = '#ffffff';
         disableButtonsExcept('create-line');
     }
 });
