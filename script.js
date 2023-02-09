@@ -45,6 +45,7 @@ const cBuffer = gl.createBuffer();
 let allVertices = [];
 let allColors = [];
 let allShapes = [];
+let allCenters = [];
 
 const buttonContainer = document.getElementsByClassName('create-button-container');
 const buttons = buttonContainer[0].getElementsByTagName('button');
@@ -59,33 +60,58 @@ const buttons = buttonContainer[0].getElementsByTagName('button');
  */
 let isOnCreate = "";
 let isDrawing = "";
+let isDragging = "";
+let isMoving = "";
+
+/*
+ * [shapeIndex, vertexIndex] for dragging
+ * shapeIndex for moving
+ */
+let nearestIndex = [];
 
 render();
 
 canvas.addEventListener('mousemove', function(e) {
-    if (isDrawing === "rectangle") {
-        let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
-        let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
+    let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
+    let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
+    if (isDrawing === "rectangle") {
         drawRectangle(x, y);
+    } else if (isDragging === "rectangle") {
+        resizeRectangle(x, y);
+    } else if (isMoving === "rectangle") {
+        moveRectangle(x, y);
+    } else {
+        canvas.style.cursor = "default";
     }
 });
 
 canvas.addEventListener('mousedown', function(e) {
+    let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
+    let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
+
     if (isOnCreate === "rectangle") {
-        let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
-        let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
-
         makeRectangle(x, y);
-
         isDrawing = "rectangle";
+    } else if (isNearVertex(x, y)) {
+        nearestIndex = getNearestVertex(x, y);
+        isDragging = allShapes[nearestIndex[0]].type;
+    } else if (isNearCenter(x, y)) {
+        nearestIndex = getNearestCenter(x, y);
+        isMoving = allShapes[nearestIndex].type;
     }
 });
 
 canvas.addEventListener('mouseup', function() {
-    isDrawing = "";
     if (isOnCreate) {
+        isDrawing = "";
         console.log(allVertices);
+    } else if (isDragging) {
+        nearestIndex = [];
+        isDragging = "";
+    } else if (isMoving) {
+        nearestIndex = [];
+        isMoving = "";
     }
 });
 
@@ -94,6 +120,7 @@ function render() {
 
     allVertices = getAllVertices();
     allColors = getAllColors();
+    allCenters = getAllCenters();
 
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(allVertices), gl.STATIC_DRAW);
