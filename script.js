@@ -47,8 +47,8 @@ let allColors = [];
 let allShapes = [];
 let allCenters = [];
 
-const buttonContainer = document.getElementsByClassName('create-button-container');
-const buttons = buttonContainer[0].getElementsByTagName('button');
+const button_container = document.getElementsByClassName('create-button-container');
+const buttons = button_container[0].getElementsByTagName('button');
 
 /*
  * Possible values:
