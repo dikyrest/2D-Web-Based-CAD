@@ -1,7 +1,7 @@
 const rectanglebtn = document.getElementById('create-rectangle');
 
 rectanglebtn.addEventListener('click', function() {
-    if (isOnCreateRectangle) {
+    if (isOnCreate) {
         isOnCreate = false;
         rectanglebtn.textContent = 'Rectangle';
         rectanglebtn.removeAttribute('style');
@@ -10,7 +10,7 @@ rectanglebtn.addEventListener('click', function() {
         polygonbtn.disabled = false;
         polygonstripbtn.disabled = false;
     } else {
-        isOnCreateRectangle = true;
+        isOnCreate = true;
         rectanglebtn.textContent = 'Save';
         rectanglebtn.style.backgroundColor = '#808080';
         rectanglebtn.style.color = '#ffffff';

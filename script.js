@@ -4,6 +4,7 @@ const vSource = `
     varying vec4 fColor;
     void main() {
         gl_Position = vPosition;
+        gl_PointSize = 10.0;
         fColor = vColor;
     }
 `;
@@ -101,6 +102,7 @@ function render() {
     gl.enableVertexAttribArray(vColor);
 
     for (let i=0; i<vertices.length; i+=4) {
+        gl.drawArrays(gl.POINTS, i, 4);
         gl.drawArrays(gl.TRIANGLE_STRIP, i, 4);
     };
 
