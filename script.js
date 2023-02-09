@@ -49,13 +49,21 @@ let allVertices = [];
 let allColors = [];
 let allShapes = [];
 
-let isOnCreate = false;
-let isDrawing = false;
+/*
+ * Possible values:
+ * - line
+ * - square
+ * - rectangle
+ * - polygon
+ * - poly-strip
+ */
+let isOnCreate = "";
+let isDrawing = "";
 
 render();
 
 canvas.addEventListener('mousemove', function(e) {
-    if (isDrawing) {
+    if (isDrawing === "rectangle") {
         let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
         let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
@@ -64,20 +72,19 @@ canvas.addEventListener('mousemove', function(e) {
 });
 
 canvas.addEventListener('mousedown', function(e) {
-    if (isOnCreate) {
+    if (isOnCreate === "rectangle") {
         let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
         let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
         makeRectangle(x, y);
 
-        isDrawing = true;
+        isDrawing = "rectangle";
     }
 });
 
-canvas.addEventListener('mouseup', function(e) {
+canvas.addEventListener('mouseup', function() {
+    isDrawing = "";
     if (isOnCreate) {
-        isDrawing = false;
-
         console.log(allVertices);
     }
 });

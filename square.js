@@ -1,8 +1,8 @@
 squarebtn = document.getElementById("create-square");
 
 squarebtn.addEventListener("click", function () {
-    if (isOnCreate) {
-        isOnCreate = false;
+    if (isOnCreate === "square") {
+        isOnCreate = "";
         squarebtn.textContent = "Square";
         squarebtn.removeAttribute("style");
         linebtn.disabled = false;
@@ -10,7 +10,7 @@ squarebtn.addEventListener("click", function () {
         polygonbtn.disabled = false;
         polygonstripbtn.disabled = false;
     } else {
-        isOnCreate = true;
+        isOnCreate = "square";
         squarebtn.textContent = "Save";
         squarebtn.style.backgroundColor = "#808080";
         squarebtn.style.color = "#ffffff";

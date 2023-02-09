@@ -1,8 +1,8 @@
 const linebtn = document.getElementById('create-line');
 
 linebtn.addEventListener('click', function() {
-    if (isOnCreate) {
-        isOnCreate = false;
+    if (isOnCreate === "line") {
+        isOnCreate = "";
         linebtn.textContent = 'Line';
         linebtn.removeAttribute('style');
         squarebtn.disabled = false;
@@ -10,7 +10,7 @@ linebtn.addEventListener('click', function() {
         polygonbtn.disabled = false;
         polygonstripbtn.disabled = false;
     } else {
-        isOnCreate = true;
+        isOnCreate = "line";
         linebtn.textContent = 'Save';
         linebtn.style.backgroundColor = '#808080';
         linebtn.style.color = '#ffffff';
