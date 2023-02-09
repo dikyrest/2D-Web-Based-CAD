@@ -45,12 +45,12 @@ const buttons = buttonContainer[0].getElementsByTagName('button');
 const vBuffer = gl.createBuffer();
 const cBuffer = gl.createBuffer();
 
-var allVertices = [];
-var allColors = [];
-var allShapes = [];
+let allVertices = [];
+let allColors = [];
+let allShapes = [];
 
-var isOnCreate = false;
-var isDrawing = false;
+let isOnCreate = false;
+let isDrawing = false;
 
 render();
 
@@ -109,7 +109,7 @@ function render() {
             gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
             j += 4;
         }
-    };
+    }
 
     window.requestAnimationFrame(render);
 }
