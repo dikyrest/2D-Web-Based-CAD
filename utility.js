@@ -28,3 +28,27 @@ function flatten(mat) {
 
     return floats;
 }
+
+function getAllVertices() {
+    let allVertices = [];
+
+    for (let i=0; i<allShapes.length; i++) {
+        for (let j=0; j<allShapes[i].vertices.length; j++) {
+            allVertices.push(allShapes[i].vertices[j]);
+        }
+    }
+
+    return allVertices;
+}
+
+function getAllColors() {
+    let allColors = [];
+
+    for (let i=0; i<allShapes.length; i++) {
+        for (let j=0; j<allShapes[i].colors.length; j++) {
+            allColors.push(allShapes[i].colors[j]);
+        }
+    }
+
+    return allColors;
+}
