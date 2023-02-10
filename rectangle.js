@@ -38,9 +38,12 @@ function drawRectangle(x, y) {
 }
 
 function resizeRectangle(indexes, x, y) {
-    allShapes[indexes[0]].vertices[indexes[1]][0] = x;
-    allShapes[indexes[0]].vertices[indexes[1]][1] = y;
-    if (mod(indexes[1], 2) === 0) {
+    let shapeIndex = indexes[0];
+    let vertexIndex = indexes[1];
+
+    allShapes[shapeIndex].vertices[vertexIndex][0] = x;
+    allShapes[shapeIndex].vertices[vertexIndex][1] = y;
+    if (mod(vertexIndex, 2) === 0) {
         allShapes[indexes[0]].vertices[mod((indexes[1]+1), 4)][0] = x;
         allShapes[indexes[0]].vertices[mod((indexes[1]+2), 4)][1] = y;
     } else {

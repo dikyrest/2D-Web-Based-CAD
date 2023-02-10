@@ -6,18 +6,6 @@ class Shape {
         this.vertices = vertices;
         this.colors = colors;
     }
-}
-
-class Rectangle extends Shape {
-    constructor(vertices, colors) {
-        super("rectangle", vertices, colors);
-    }
-
-    center() {
-        let x = (this.vertices[0][0] + this.vertices[3][0]) / 2;
-        let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
-        return [x, y];
-    }
 
     rotate(newTheta) {
         let dtheta = newTheta - this.theta;
@@ -32,5 +20,35 @@ class Rectangle extends Shape {
         }
 
         this.theta = newTheta;
+    }
+}
+
+class Rectangle extends Shape {
+    constructor(vertices, colors) {
+        super("rectangle", vertices, colors);
+    }
+
+    center() {
+        let x = (this.vertices[0][0] + this.vertices[3][0]) / 2;
+        let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
+        return [x, y];
+    }
+}
+
+class Polygon extends Shape {
+    constructor(vertices, colors) {
+        super("polygon", vertices, colors);
+    }
+
+    center() {
+        let x = 0;
+        let y = 0;
+        for (let i=0; i<this.vertices.length; i++) {
+            x += this.vertices[i][0];
+            y += this.vertices[i][1];
+        }
+        x /= this.vertices.length;
+        y /= this.vertices.length;
+        return [x, y];
     }
 }
