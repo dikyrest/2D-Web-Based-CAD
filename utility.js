@@ -156,7 +156,9 @@ function showVertexProperties(indexes) {
 
     let vertexProperties = document.getElementById("properties-container");
     vertexProperties.innerHTML = "Shape: " + allShapes[shapeIndex].type + "<br>Vertex: " + vertexIndex + "<br>X: " + x + "<br>Y: " + y;
-    vertexProperties.innerHTML += "<br>Color: <input onchange='changeVertexColor()' type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
+    vertexProperties.innerHTML += "<br>Color: <input type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
+
+    document.getElementById("vertex-color").onchange = function() { changeVertexColor(indexes); };
 }
 
 function showShapeProperties(index) {
@@ -165,8 +167,11 @@ function showShapeProperties(index) {
 
     let shapeProperties = document.getElementById("properties-container");
     shapeProperties.innerHTML = "Shape: " + allShapes[index].type + "<br>Center: (" + x + ", " + y + ")";
-    shapeProperties.innerHTML += "<br>Color: <input onchange='changeShapeColor(" + index +  ")' type='color' id='shape-color' name='shape-color' value='#000000'>";
-    shapeProperties.innerHTML += "<br>Rotation: <input onchange='rotateShape(" + index + ")' type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[index].theta + "'>";
+    shapeProperties.innerHTML += "<br>Color: <input type='color' id='shape-color' name='shape-color' value='#000000'>";
+    shapeProperties.innerHTML += "<br>Rotation: <input type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[index].theta + "'>";
+
+    document.getElementById("shape-color").onchange = function() { changeShapeColor(index); };
+    document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
 }
 
 function changeVertexColor(indexes) {
@@ -181,7 +186,7 @@ function changeVertexColor(indexes) {
     allShapes[shapeIndex].colors[vertexIndex] = [r/255, g/255, b/255, 1];
 }
 
-function changeShapeColor(index) {
+function changeShapeColor() {
     let color = document.getElementById("shape-color").value;
     let r = parseInt(color.substring(1, 3), 16);
     let g = parseInt(color.substring(3, 5), 16);
