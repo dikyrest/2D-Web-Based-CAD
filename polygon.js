@@ -41,9 +41,5 @@ function resizePolygon(indexes, x, y) {
 function movePolygon(index, x, y) {
     let dx = x - allShapes[index].center()[0];
     let dy = y - allShapes[index].center()[1];
-
-    for (let i=0; i<allShapes[index].vertices.length; i++) {
-        allShapes[index].vertices[i][0] += dx;
-        allShapes[index].vertices[i][1] += dy;
-    }
+    allShapes[index].move(dx, dy);
 }
