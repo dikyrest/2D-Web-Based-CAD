@@ -62,7 +62,9 @@ let isOnCreate = "";
 let isDrawing = "";
 let isDragging = "";
 let isMoving = "";
+
 let polygonVertexCount = 0;
+let polyStripVertexCount = 0;
 
 render();
 
@@ -78,12 +80,18 @@ canvas.addEventListener('mousemove', function(e) {
     } else if (isDragging === "polygon") {
         let indexes = getNearestVertex(x, y);
         resizePolygon(indexes, x, y);
+    } else if (isDragging === "poly-strip") {
+        let indexes = getNearestVertex(x, y);
+        resizePolyStrip(indexes, x, y);
     } else if (isMoving === "rectangle") {
         let index = getNearestCenter(x, y);
         moveRectangle(index, x, y);
     } else if (isMoving === "polygon") {
         let index = getNearestCenter(x, y);
         movePolygon(index, x, y);
+    } else if (isMoving === "poly-strip") {
+        let index = getNearestCenter(x, y);
+        movePolyStrip(index, x, y);
     }
 });
 
@@ -120,6 +128,8 @@ canvas.addEventListener('click', function(e) {
 
     if (isOnCreate === "polygon") {
         makePolygon(x, y);
+    } else if (isOnCreate === "poly-strip") {
+        makePolyStrip(x, y);
     } else if (isNearVertex(x, y)) {
         let indexes = getNearestVertex(x, y);
         showVertexProperties(indexes);
@@ -159,6 +169,10 @@ function render() {
         } else if (allShapes[i].type === 'polygon') {
             gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
             gl.drawArrays(gl.TRIANGLE_FAN, j, allShapes[i].vertices.length);
+            j += allShapes[i].vertices.length;
+        } else if (allShapes[i].type === 'poly-strip') {
+            gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
+            gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
             j += allShapes[i].vertices.length;
         }
     }
