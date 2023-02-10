@@ -186,7 +186,7 @@ function changeVertexColor(indexes) {
     allShapes[shapeIndex].colors[vertexIndex] = [r/255, g/255, b/255, 1];
 }
 
-function changeShapeColor() {
+function changeShapeColor(index) {
     let color = document.getElementById("shape-color").value;
     let r = parseInt(color.substring(1, 3), 16);
     let g = parseInt(color.substring(3, 5), 16);
