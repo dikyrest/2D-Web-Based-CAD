@@ -63,12 +63,6 @@ let isDrawing = "";
 let isDragging = "";
 let isMoving = "";
 
-// [shapeIndex, vertexIndex]
-let nearestVertexIndex = [];
-
-// shapeIndex
-let nearestCenterIndex = -1;
-
 render();
 
 canvas.addEventListener('mousemove', function(e) {
@@ -78,9 +72,11 @@ canvas.addEventListener('mousemove', function(e) {
     if (isDrawing === "rectangle") {
         drawRectangle(x, y);
     } else if (isDragging === "rectangle") {
-        resizeRectangle(x, y);
+        let indexes = getNearestVertex(x, y);
+        resizeRectangle(indexes, x, y);
     } else if (isMoving === "rectangle") {
-        moveRectangle(x, y);
+        let index = getNearestCenter(x, y);
+        moveRectangle(index, x, y);
     } else {
         canvas.style.cursor = "default";
     }
@@ -94,11 +90,11 @@ canvas.addEventListener('mousedown', function(e) {
         makeRectangle(x, y);
         isDrawing = "rectangle";
     } else if (isNearVertex(x, y)) {
-        nearestVertexIndex = getNearestVertex(x, y);
-        isDragging = allShapes[nearestVertexIndex[0]].type;
+        let indexes = getNearestVertex(x, y);
+        isDragging = allShapes[indexes[0]].type;
     } else if (isNearCenter(x, y)) {
-        nearestCenterIndex = getNearestCenter(x, y);
-        isMoving = allShapes[nearestCenterIndex].type;
+        let index = getNearestCenter(x, y);
+        isMoving = allShapes[index].type;
     }
 });
 
@@ -107,10 +103,8 @@ canvas.addEventListener('mouseup', function() {
         isDrawing = "";
         console.log(allShapes);
     } else if (isDragging) {
-        nearestVertexIndex = [];
         isDragging = "";
     } else if (isMoving) {
-        nearestCenterIndex = -1;
         isMoving = "";
     }
 });
@@ -120,14 +114,12 @@ canvas.addEventListener('click', function(e) {
     let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
     if (isNearVertex(x, y)) {
-        nearestVertexIndex = getNearestVertex(x, y);
-        showVertexProperties();
+        let indexes = getNearestVertex(x, y);
+        showVertexProperties(indexes);
     } else if (isNearCenter(x, y)) {
-        nearestCenterIndex = getNearestCenter(x, y);
-        showShapeProperties();
+        let index = getNearestCenter(x, y);
+        showShapeProperties(index);
     }
-
-    console.log(nearestVertexIndex);
 });
 
 function render() {

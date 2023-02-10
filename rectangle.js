@@ -37,24 +37,24 @@ function drawRectangle(x, y) {
     allShapes[allShapes.length-1].vertices[len-3][1] = y;
 }
 
-function resizeRectangle(x, y) {
-    allShapes[nearestVertexIndex[0]].vertices[nearestVertexIndex[1]][0] = x;
-    allShapes[nearestVertexIndex[0]].vertices[nearestVertexIndex[1]][1] = y;
-    if (mod(nearestVertexIndex[1], 2) === 0) {
-        allShapes[nearestVertexIndex[0]].vertices[mod((nearestVertexIndex[1]+1), 4)][0] = x;
-        allShapes[nearestVertexIndex[0]].vertices[mod((nearestVertexIndex[1]+2), 4)][1] = y;
+function resizeRectangle(indexes, x, y) {
+    allShapes[indexes[0]].vertices[indexes[1]][0] = x;
+    allShapes[indexes[0]].vertices[indexes[1]][1] = y;
+    if (mod(indexes[1], 2) === 0) {
+        allShapes[indexes[0]].vertices[mod((indexes[1]+1), 4)][0] = x;
+        allShapes[indexes[0]].vertices[mod((indexes[1]+2), 4)][1] = y;
     } else {
-        allShapes[nearestVertexIndex[0]].vertices[mod((nearestVertexIndex[1]-1), 4)][0] = x;
-        allShapes[nearestVertexIndex[0]].vertices[mod((nearestVertexIndex[1]-2), 4)][1] = y;
+        allShapes[indexes[0]].vertices[mod((indexes[1]-1), 4)][0] = x;
+        allShapes[indexes[0]].vertices[mod((indexes[1]-2), 4)][1] = y;
     }
 }
 
-function moveRectangle(x, y) {
-    let dx = x - allShapes[nearestCenterIndex].center()[0];
-    let dy = y - allShapes[nearestCenterIndex].center()[1];
+function moveRectangle(index, x, y) {
+    let dx = x - allShapes[index].center()[0];
+    let dy = y - allShapes[index].center()[1];
 
-    for (let i=0; i<allShapes[nearestCenterIndex].vertices.length; i++) {
-        allShapes[nearestCenterIndex].vertices[i][0] += dx;
-        allShapes[nearestCenterIndex].vertices[i][1] += dy;
+    for (let i=0; i<allShapes[index].vertices.length; i++) {
+        allShapes[index].vertices[i][0] += dx;
+        allShapes[index].vertices[i][1] += dy;
     }
 }

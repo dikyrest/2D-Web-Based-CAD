@@ -80,7 +80,7 @@ button:hover {
     border-radius: 5px;
 }
 
-#vertex-color {
+#vertex-color, #shape-color {
     padding: 2px;
     border: 1px solid #000000;
     border-radius: 5px;
