@@ -122,6 +122,9 @@ canvas.addEventListener('click', function(e) {
     if (isNearVertex(x, y)) {
         nearestVertexIndex = getNearestVertex(x, y);
         showVertexProperties();
+    } else if (isNearCenter(x, y)) {
+        nearestCenterIndex = getNearestCenter(x, y);
+        showShapeProperties();
     }
 
     console.log(nearestVertexIndex);

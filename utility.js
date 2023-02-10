@@ -159,6 +159,18 @@ function showVertexProperties() {
     vertexProperties.innerHTML += "<br>Color: <input onchange='changeVertexColor()' type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
 }
 
+function showShapeProperties() {
+    let shapeIndex = nearestCenterIndex;
+
+    let x = allShapes[shapeIndex].center()[0];
+    let y = allShapes[shapeIndex].center()[1];
+
+    let shapeProperties = document.getElementById("properties-container");
+    shapeProperties.innerHTML = "Shape: " + allShapes[shapeIndex].type + "<br>Center: (" + x + ", " + y + ")";
+    shapeProperties.innerHTML += "<br>Color: <input onchange='changeShapeColor()' type='color' id='shape-color' name='shape-color' value='#000000'>";
+    shapeProperties.innerHTML += "<br>Rotation: <input onchange='rotateShape()' type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[shapeIndex].theta + "'>";
+}
+
 function changeVertexColor() {
     let shapeIndex = nearestVertexIndex[0];
     let vertexIndex = nearestVertexIndex[1];
@@ -169,4 +181,24 @@ function changeVertexColor() {
     let b = parseInt(color.substring(5, 7), 16);
 
     allShapes[shapeIndex].colors[vertexIndex] = [r/255, g/255, b/255, 1];
+}
+
+function changeShapeColor() {
+    let shapeIndex = nearestCenterIndex;
+
+    let color = document.getElementById("shape-color").value;
+    let r = parseInt(color.substring(1, 3), 16);
+    let g = parseInt(color.substring(3, 5), 16);
+    let b = parseInt(color.substring(5, 7), 16);
+
+    for (let i=0; i<allShapes[shapeIndex].colors.length; i++) {
+        allShapes[shapeIndex].colors[i] = [r/255, g/255, b/255, 1];
+    }
+}
+
+function rotateShape() {
+    let shapeIndex = nearestCenterIndex;
+    let theta = document.getElementById("rotation-theta").value;
+
+    allShapes[shapeIndex].rotate(theta);
 }

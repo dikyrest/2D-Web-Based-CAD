@@ -2,6 +2,7 @@ class Shape {
     constructor(type, vertices, colors) {
         this.id = allShapes.length;
         this.type = type;
+        this.theta = 0;
         this.vertices = vertices;
         this.colors = colors;
     }
@@ -16,5 +17,20 @@ class Rectangle extends Shape {
         let x = (this.vertices[0][0] + this.vertices[3][0]) / 2;
         let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
         return [x, y];
+    }
+
+    rotate(newTheta) {
+        let dtheta = newTheta - this.theta;
+        let center = this.center();
+
+        for (let i=0; i<this.vertices.length; i++) {
+            let x = this.vertices[i][0] - center[0];
+            let y = this.vertices[i][1] - center[1];
+
+            this.vertices[i][0] = center[0] + x * Math.cos(dtheta * Math.PI/180) - y * Math.sin(dtheta * Math.PI/180);
+            this.vertices[i][1] = center[1] + x * Math.sin(dtheta * Math.PI/180) + y * Math.cos(dtheta * Math.PI/180);
+        }
+
+        this.theta = newTheta;
     }
 }
