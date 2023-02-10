@@ -19,7 +19,7 @@ class Shape {
             this.vertices[i][1] = center[1] + x * Math.sin(dtheta * Math.PI/180) + y * Math.cos(dtheta * Math.PI/180);
         }
 
-        this.theta = newTheta;
+        this.theta = parseInt(newTheta);
     }
 }
 
