@@ -177,9 +177,11 @@ function showShapeProperties(index) {
         shapeProperties.innerHTML += "<br><button id='add-vertex'>Add Vertex</button>";
         document.getElementById("add-vertex").onclick = function() { addVertex(index); };
     }
+    shapeProperties.innerHTML += "<br><button id='remove-shape'>Remove Shape</button>";
 
     document.getElementById("shape-color").onchange = function() { changeShapeColor(index); };
     document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
+    document.getElementById("remove-shape").onclick = function() { removeShape(index); };
 }
 
 function changeVertexColor(indexes) {
@@ -236,4 +238,8 @@ function addVertex(index) {
 function addVertexAt(x, y) {
     allShapes[onAddVertexIndex].vertices.push([x, y]);
     allShapes[onAddVertexIndex].colors.push([0, 0, 0, 1]);
+}
+
+function removeShape(index) {
+    allShapes.splice(index, 1);
 }
