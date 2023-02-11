@@ -63,7 +63,9 @@ let isDrawing = "";
 let isDragging = "";
 let isMoving = "";
 
-let lineVertexCount = 0;
+let onDragVertexIndex = []; // [shapeIndex, vertexIndex]
+let onMoveShapeIndex = -1; // shapeIndex
+
 let polygonVertexCount = 0;
 let polyStripVertexCount = 0;
 
@@ -78,33 +80,26 @@ canvas.addEventListener('mousemove', function(e) {
     } else if (isDrawing === "line") {
         drawLine(x,y);
     } else if (isDragging === "rectangle") {
-        let indexes = getNearestVertex(x, y);
-        resizeRectangle(indexes, x, y);
+        resizeRectangle(onDragVertexIndex, x, y);
     } else if (isDragging === "line") {
-        let indexes = getNearestVertex(x,y);
-        resizeLine(indexes, x, y);
+        resizeLine(onDragVertexIndex, x, y);
     } else if (isDragging === "polygon") {
-        let indexes = getNearestVertex(x, y);
-        resizePolygon(indexes, x, y);
+        resizePolygon(onDragVertexIndex, x, y);
     } else if (isDragging === "poly-strip") {
-        let indexes = getNearestVertex(x, y);
-        resizePolyStrip(indexes, x, y);
+        resizePolyStrip(onDragVertexIndex, x, y);
     } else if (isMoving === "rectangle") {
-        let index = getNearestCenter(x, y);
-        moveRectangle(index, x, y);
+        moveRectangle(onMoveShapeIndex, x, y);
     } else if (isMoving === "line") {
-        let index = getNearestCenter(x,y);
-        moveLine(index, x, y);
+        moveLine(onMoveShapeIndex, x, y);
     } else if (isMoving === "polygon") {
-        let index = getNearestCenter(x, y);
-        movePolygon(index, x, y);
+        movePolygon(onMoveShapeIndex, x, y);
     } else if (isMoving === "poly-strip") {
-        let index = getNearestCenter(x, y);
-        movePolyStrip(index, x, y);
+        movePolyStrip(onMoveShapeIndex, x, y);
     }
 });
 
 canvas.addEventListener('mousedown', function(e) {
+    // Get mouse position
     let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
     let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
@@ -115,11 +110,11 @@ canvas.addEventListener('mousedown', function(e) {
         makeLine(x,y);
         isDrawing = "line";
     } else if (isNearVertex(x, y)) {
-        let indexes = getNearestVertex(x, y);
-        isDragging = allShapes[indexes[0]].type;
+        onDragVertexIndex = getNearestVertex(x, y);
+        isDragging = allShapes[onDragVertexIndex[0]].type;
     } else if (isNearCenter(x, y)) {
-        let index = getNearestCenter(x, y);
-        isMoving = allShapes[index].type;
+        onMoveShapeIndex = getNearestCenter(x, y);
+        isMoving = allShapes[onMoveShapeIndex].type;
     }
 });
 
@@ -128,20 +123,25 @@ canvas.addEventListener('mouseup', function() {
         isDrawing = "";
         console.log(allShapes);
     } else if (isDragging) {
+        onDragVertexIndex = [];
         isDragging = "";
     } else if (isMoving) {
+        onMoveShapeIndex = -1;
         isMoving = "";
     }
 });
 
 canvas.addEventListener('click', function(e) {
+    // Get mouse position
     let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
     let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
     if (isOnCreate === "polygon") {
         makePolygon(x, y);
+        console.log(allShapes);
     } else if (isOnCreate === "poly-strip") {
         makePolyStrip(x, y);
+        console.log(allShapes);
     } else if (isNearVertex(x, y)) {
         let indexes = getNearestVertex(x, y);
         showVertexProperties(indexes);
@@ -152,12 +152,15 @@ canvas.addEventListener('click', function(e) {
 });
 
 function render() {
+    // Clear canvas
     gl.clear(gl.COLOR_BUFFER_BIT);
 
+    // Create buffers
     allVertices = getAllVertices();
     allColors = getAllColors();
     allCenters = getAllCenters();
 
+    // Bind buffers
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(allVertices), gl.STATIC_DRAW);
 
@@ -172,6 +175,7 @@ function render() {
     gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vColor);
 
+    // Draw all shapes
     let j = 0;
     for (let i=0; i<allShapes.length; i++) {
         if (allShapes[i].type === 'rectangle') {
