@@ -104,7 +104,7 @@ canvas.addEventListener('mousemove', function(e) {
         drawRectangle(x, y);
     } else if (isDrawing === "square") {
         drawSquare(x, y);
-    }  else if (isDragging === "line") {
+    } else if (isDragging === "line") {
         resizeLine(onDragVertexIndex, x, y);
     } else if (isDragging === "rectangle") {
         resizeRectangle(onDragVertexIndex, x, y);
