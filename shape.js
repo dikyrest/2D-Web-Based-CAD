@@ -42,6 +42,24 @@ class Rectangle extends Shape {
     }
 }
 
+class Line extends Shape {
+    constructor(vertices, colors) {
+        super("line", vertices, colors);
+    }
+
+    center() {
+        let x = 0;
+        let y = 0;
+        for (let i=0; i<this.vertices.length; i++) {
+            x += this.vertices[i][0];
+            y += this.vertices[i][1];
+        }
+        x /= this.vertices.length;
+        y /= this.vertices.length;
+        return [x, y];
+    }
+}
+
 class Polygon extends Shape {
     constructor(vertices, colors) {
         super("polygon", vertices, colors);
