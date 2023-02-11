@@ -173,11 +173,11 @@ function showShapeProperties(index) {
     shapeProperties.innerHTML = "<b>SHAPE</b><b>Shape:</b> " + allShapes[index].type + "<br><b>Center:</b> (" + x + ", " + y + ")";
     shapeProperties.innerHTML += "<br>Color: <input type='color' id='shape-color' name='shape-color' value='#000000'>";
     shapeProperties.innerHTML += "<br>Rotation: <input type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[index].theta + "'>";
+    shapeProperties.innerHTML += "<br><button id='remove-shape'>Remove Shape</button>";
     if (["polygon", "poly-strip"].includes(allShapes[index].type)) {
         shapeProperties.innerHTML += "<br><button id='add-vertex'>Add Vertex</button>";
         document.getElementById("add-vertex").onclick = function() { addVertex(index); };
     }
-    shapeProperties.innerHTML += "<br><button id='remove-shape'>Remove Shape</button>";
 
     document.getElementById("shape-color").onchange = function() { changeShapeColor(index); };
     document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
