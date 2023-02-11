@@ -48,14 +48,8 @@ class Line extends Shape {
     }
 
     center() {
-        let x = 0;
-        let y = 0;
-        for (let i=0; i<this.vertices.length; i++) {
-            x += this.vertices[i][0];
-            y += this.vertices[i][1];
-        }
-        x /= this.vertices.length;
-        y /= this.vertices.length;
+        let x = (this.vertices[0][0] + this.vertices[1][0]) / 2;
+        let y = (this.vertices[0][1] + this.vertices[1][1]) / 2;
         return [x, y];
     }
 }
