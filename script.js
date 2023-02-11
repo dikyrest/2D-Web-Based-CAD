@@ -72,18 +72,43 @@ let polyStripVertexCount = 0;
 
 render();
 
+canvas.addEventListener('mousedown', function(e) {
+    // Get mouse position
+    let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
+    let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
+
+    if (isOnCreate === "line") {
+        isDrawing = "line";
+        makeLine(x, y);
+    } else if (isOnCreate === "rectangle") {
+        isDrawing = "rectangle";
+        makeRectangle(x, y);
+    } else if (isOnCreate === "square") {
+        isDrawing = "square";
+        makeSquare(x, y);
+    } else if (isNearVertex(x, y)) {
+        onDragVertexIndex = getNearestVertex(x, y);
+        isDragging = allShapes[onDragVertexIndex[0]].type;
+    } else if (isNearCenter(x, y)) {
+        onMoveShapeIndex = getNearestCenter(x, y);
+        isMoving = allShapes[onMoveShapeIndex].type;
+    }
+});
+
 canvas.addEventListener('mousemove', function(e) {
     let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
     let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
-    if (isDrawing === "rectangle") {
-        drawRectangle(x, y);
-    } else if (isDrawing === "line") {
+    if (isDrawing === "line") {
         drawLine(x,y);
-    } else if (isDragging === "rectangle") {
-        resizeRectangle(onDragVertexIndex, x, y);
+    } else if (isDrawing === "rectangle") {
+        drawRectangle(x, y);
+    } else if (isDrawing === "square") {
+        drawSquare(x, y);
     } else if (isDragging === "line") {
         resizeLine(onDragVertexIndex, x, y);
+    } else if (isDragging === "rectangle") {
+        resizeRectangle(onDragVertexIndex, x, y);
     } else if (isDragging === "polygon") {
         resizePolygon(onDragVertexIndex, x, y);
     } else if (isDragging === "poly-strip") {
@@ -96,26 +121,6 @@ canvas.addEventListener('mousemove', function(e) {
         movePolygon(onMoveShapeIndex, x, y);
     } else if (isMoving === "poly-strip") {
         movePolyStrip(onMoveShapeIndex, x, y);
-    }
-});
-
-canvas.addEventListener('mousedown', function(e) {
-    // Get mouse position
-    let x = (2 * (e.clientX - canvas.offsetLeft)) / canvas.clientWidth - 1;
-    let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
-
-    if (isOnCreate === "rectangle") {
-        makeRectangle(x, y);
-        isDrawing = "rectangle";
-    } else if (isOnCreate === "line") {
-        makeLine(x,y);
-        isDrawing = "line";
-    } else if (isNearVertex(x, y)) {
-        onDragVertexIndex = getNearestVertex(x, y);
-        isDragging = allShapes[onDragVertexIndex[0]].type;
-    } else if (isNearCenter(x, y)) {
-        onMoveShapeIndex = getNearestCenter(x, y);
-        isMoving = allShapes[onMoveShapeIndex].type;
     }
 });
 
@@ -181,10 +186,18 @@ function render() {
 
     // Draw all shapes
     let j = 0;
-    for (let i=0; i<allShapes.length; i++) {
-        if (allShapes[i].type === 'rectangle') {
+    for (let i = 0; i < allShapes.length; i++) {
+        if (allShapes[i].type === 'line') {
+            gl.drawArrays(gl.POINTS, j, 2);
+            gl.drawArrays(gl.LINES, j, 2);
+            j += 2;
+        } else if (allShapes[i].type === 'rectangle') {
             gl.drawArrays(gl.POINTS, j, 4);
             gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
+            j += 4;
+        } else if (allShapes[i].type === 'square') {
+            gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
+            gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
             j += 4;
         } else if (allShapes[i].type === 'polygon') {
             gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
@@ -194,10 +207,6 @@ function render() {
             gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
             gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
             j += allShapes[i].vertices.length;
-        } else if (allShapes[i].type === 'line') {
-            gl.drawArrays(gl.POINTS, j, 2);
-            gl.drawArrays(gl.LINES, j, 2);
-            j += 2;
         }
     }
 
