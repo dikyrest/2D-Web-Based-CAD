@@ -42,6 +42,18 @@ class Rectangle extends Shape {
     }
 }
 
+class Square extends Shape {
+    constructor(vertices, colors) {
+        super("square", vertices, colors);
+    }
+
+    center() {
+        let x = (this.vertices[0][0] + this.vertices[3][0]) / 2;
+        let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
+        return [x, y];
+    }
+}
+
 class Line extends Shape {
     constructor(vertices, colors) {
         super("line", vertices, colors);

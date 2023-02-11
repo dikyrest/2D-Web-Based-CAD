@@ -77,6 +77,8 @@ canvas.addEventListener('mousemove', function(e) {
 
     if (isDrawing === "rectangle") {
         drawRectangle(x, y);
+    } else if (isDrawing === "square") {
+        drawSquare(x, y);
     } else if (isDrawing === "line") {
         drawLine(x,y);
     } else if (isDragging === "rectangle") {
@@ -104,11 +106,14 @@ canvas.addEventListener('mousedown', function(e) {
     let y = 1 - (2 * (e.clientY - canvas.offsetTop)) / canvas.clientHeight;
 
     if (isOnCreate === "rectangle") {
-        makeRectangle(x, y);
         isDrawing = "rectangle";
-    } else if (isOnCreate === "line") {
-        makeLine(x,y);
+        makeRectangle(x, y);
+    } else if (isOnCreate === "square") {
+        isDrawing = "square";
+        makeSquare(x, y);
+    } if (isOnCreate === "line") {
         isDrawing = "line";
+        makeLine(x, y);
     } else if (isNearVertex(x, y)) {
         onDragVertexIndex = getNearestVertex(x, y);
         isDragging = allShapes[onDragVertexIndex[0]].type;
@@ -177,10 +182,14 @@ function render() {
 
     // Draw all shapes
     let j = 0;
-    for (let i=0; i<allShapes.length; i++) {
+    for (let i = 0; i < allShapes.length; i++) {
         if (allShapes[i].type === 'rectangle') {
             gl.drawArrays(gl.POINTS, j, 4);
             gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
+            j += 4;
+        } else if (allShapes[i].type === 'square') {
+            gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
+            gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
             j += 4;
         } else if (allShapes[i].type === 'polygon') {
             gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
