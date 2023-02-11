@@ -26,7 +26,7 @@ class Shape {
             this.vertices[i][1] = center[1] + x * Math.sin(dtheta * Math.PI/180) + y * Math.cos(dtheta * Math.PI/180);
         }
 
-        this.theta = parseInt(newTheta);
+        this.theta = newTheta;
     }
 }
 
@@ -40,6 +40,10 @@ class Line extends Shape {
         let y = (this.vertices[0][1] + this.vertices[1][1]) / 2;
         return [x, y];
     }
+
+    calcLength() {
+        return Math.sqrt(Math.pow(this.vertices[1][0] - this.vertices[0][0], 2) + Math.pow(this.vertices[1][1] - this.vertices[0][1], 2));
+    }
 }
 
 class Rectangle extends Shape {
@@ -52,6 +56,14 @@ class Rectangle extends Shape {
         let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
         return [x, y];
     }
+
+    calcLength() {
+        return Math.sqrt(Math.pow(this.vertices[2][0] - this.vertices[0][0], 2) + Math.pow(this.vertices[2][1] - this.vertices[0][1], 2));
+    }
+
+    calcWidth() {
+        return Math.sqrt(Math.pow(this.vertices[1][0] - this.vertices[0][0], 2) + Math.pow(this.vertices[1][1] - this.vertices[0][1], 2));
+    }
 }
 
 class Square extends Shape {
@@ -63,6 +75,10 @@ class Square extends Shape {
         let x = (this.vertices[0][0] + this.vertices[3][0]) / 2;
         let y = (this.vertices[0][1] + this.vertices[3][1]) / 2;
         return [x, y];
+    }
+
+    calcSideLength() {
+        return Math.sqrt(Math.pow(this.vertices[1][0] - this.vertices[0][0], 2) + Math.pow(this.vertices[1][1] - this.vertices[0][1], 2));
     }
 }
 

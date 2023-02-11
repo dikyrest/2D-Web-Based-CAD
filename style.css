@@ -47,6 +47,7 @@ button:hover:enabled {
     flex-direction: column;
     align-items: center;
     width: 30%;
+    position: relative;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -56,7 +57,7 @@ button:hover:enabled {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 250px;
+    max-width: 60%;
     gap: 10px;
 }
 
@@ -70,14 +71,22 @@ button:hover:enabled {
 #properties-container {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
     font-size: 14px;
     padding: 0 20px 0 20px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
-#filename {
+#filename, 
+#line-length, 
+#square-length, 
+#rectangle-length,
+#rectangle-width {
     padding: 7px;
     border: 1px solid #000000;
     border-radius: 5px;
+    width: 70%;
 }
 
 #vertex-color, #shape-color {

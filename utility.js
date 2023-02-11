@@ -155,10 +155,10 @@ function showVertexProperties(indexes) {
     let b = allShapes[shapeIndex].colors[vertexIndex][2];
 
     let vertexProperties = document.getElementById("properties-container");
-    vertexProperties.innerHTML = "<b>VERTEX</b><b>Shape:</b> " + allShapes[shapeIndex].type + "<br><b>Vertex:</b> " + vertexIndex + "<br>X: " + x + "<br>Y: " + y;
-    vertexProperties.innerHTML += "<br>Color: <input type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
+    vertexProperties.innerHTML = "<b>VERTEX</b><b>Shape:</b> " + allShapes[shapeIndex].type + "<b>Vertex:</b> " + vertexIndex + "<b>X:</b> " + x + "<b>Y:</b> " + y;
+    vertexProperties.innerHTML += "<b>Color:</b> <input type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
     if (["polygon", "poly-strip"].includes(allShapes[shapeIndex].type)) {
-        vertexProperties.innerHTML += "<br><button id='remove-vertex'>Remove Vertex</button>";
+        vertexProperties.innerHTML += "<div><button id='remove-vertex'>Remove Vertex</button></div>";
         document.getElementById("remove-vertex").onclick = function() { removeVertex(indexes); };
     }
 
@@ -170,12 +170,23 @@ function showShapeProperties(index) {
     let y = allShapes[index].center()[1];
 
     let shapeProperties = document.getElementById("properties-container");
-    shapeProperties.innerHTML = "<b>SHAPE</b><b>Shape:</b> " + allShapes[index].type + "<br><b>Center:</b> (" + x + ", " + y + ")";
-    shapeProperties.innerHTML += "<br>Color: <input type='color' id='shape-color' name='shape-color' value='#000000'>";
-    shapeProperties.innerHTML += "<br>Rotation: <input type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[index].theta + "'>";
-    shapeProperties.innerHTML += "<br><button id='remove-shape'>Remove Shape</button>";
-    if (["polygon", "poly-strip"].includes(allShapes[index].type)) {
-        shapeProperties.innerHTML += "<br><button id='add-vertex'>Add Vertex</button>";
+    shapeProperties.innerHTML = "<b>SHAPE</b><b>Shape:</b> " + allShapes[index].type + "<b>Center:</b> (" + x + ", " + y + ")";
+    shapeProperties.innerHTML += "<b>Color:</b> <input type='color' id='shape-color' name='shape-color' value='#000000'>";
+    shapeProperties.innerHTML += "<b>Rotation:</b> <input type='range' id='rotation-theta' name='rotation-theta' min=0 max=360 value='" + allShapes[index].theta + "'>";
+    shapeProperties.innerHTML += "<div><button id='remove-shape'>Remove Shape</button></div>";
+
+    if (allShapes[index].type === "line") {
+        let length = allShapes[index].calcLength();
+        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='line-length' value=" + length + ">";
+    } else if (allShapes[index].type === "square") {
+        let sideLength = allShapes[index].calcSideLength();
+        shapeProperties.innerHTML += "<b>Side Length:</b> <input type='number' id='square-length' value=" + sideLength + ">";
+    } else if (allShapes[index].type === "rectangle") {
+        let length = allShapes[index].calcLength();
+        let width = allShapes[index].calcWidth();
+        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='rectangle-length' value=" + length + "> <b>Width:</b> <input type='number' id='rectangle-width' value=" + width + ">";
+    } else if (["polygon", "poly-strip"].includes(allShapes[index].type)) {
+        shapeProperties.innerHTML += "<div><button id='add-vertex'>Add Vertex</button></div>";
         document.getElementById("add-vertex").onclick = function() { addVertex(index); };
     }
 
