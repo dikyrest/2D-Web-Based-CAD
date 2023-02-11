@@ -4,13 +4,10 @@ rectangle_button.addEventListener('click', function() {
     if (isOnCreate === "rectangle") {
         isOnCreate = "";
         rectangle_button.textContent = 'Rectangle';
-        rectangle_button.removeAttribute('style');
         enableAllButtons();
     } else {
         isOnCreate = "rectangle";
         rectangle_button.textContent = 'Save';
-        rectangle_button.style.backgroundColor = '#808080';
-        rectangle_button.style.color = '#ffffff';
         disableButtonsExcept('create-rectangle');
     }
 });

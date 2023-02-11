@@ -20,8 +20,8 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #808080;
+button:hover:enabled {
+    background-color: #000000;
     color: #ffffff;
 }
 
