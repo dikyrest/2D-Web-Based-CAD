@@ -78,6 +78,9 @@ canvas.addEventListener('mousemove', function(e) {
     } else if (isDragging === "rectangle") {
         let indexes = getNearestVertex(x, y);
         resizeRectangle(indexes, x, y);
+    } else if (isDragging === "line") {
+        let indexes = getNearestVertex(x,y);
+        resizeLine(indexes, x, y);
     } else if (isDragging === "polygon") {
         let indexes = getNearestVertex(x, y);
         resizePolygon(indexes, x, y);
@@ -87,6 +90,9 @@ canvas.addEventListener('mousemove', function(e) {
     } else if (isMoving === "rectangle") {
         let index = getNearestCenter(x, y);
         moveRectangle(index, x, y);
+    } else if (isMoving === "line") {
+        let index = getNearestCenter(x,y);
+        moveLine(index, x, y);
     } else if (isMoving === "polygon") {
         let index = getNearestCenter(x, y);
         movePolygon(index, x, y);

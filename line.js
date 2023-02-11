@@ -29,3 +29,17 @@ function makeLine(x, y) {
     }
     lineVertexCount++;
 }
+
+function resizeLine(indexes, x, y) {
+    let shapeIndex = indexes[0];
+    let vertexIndex = indexes[1];
+
+    allShapes[shapeIndex].vertices[vertexIndex][0] = x;
+    allShapes[shapeIndex].vertices[vertexIndex][1] = y;
+}
+
+function moveLine(index, x, y) {
+    let dx = x - allShapes[index].center()[0];
+    let dy = y - allShapes[index].center()[1];
+    allShapes[index].move(dx, dy);
+}
