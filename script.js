@@ -75,6 +75,8 @@ canvas.addEventListener('mousemove', function(e) {
 
     if (isDrawing === "rectangle") {
         drawRectangle(x, y);
+    } else if (isDrawing === "line") {
+        drawLine(x,y);
     } else if (isDragging === "rectangle") {
         let indexes = getNearestVertex(x, y);
         resizeRectangle(indexes, x, y);
@@ -111,6 +113,7 @@ canvas.addEventListener('mousedown', function(e) {
         isDrawing = "rectangle";
     } else if (isOnCreate === "line") {
         makeLine(x,y);
+        isDrawing = "line";
     } else if (isNearVertex(x, y)) {
         let indexes = getNearestVertex(x, y);
         isDragging = allShapes[indexes[0]].type;
@@ -172,8 +175,8 @@ function render() {
     let j = 0;
     for (let i=0; i<allShapes.length; i++) {
         if (allShapes[i].type === 'rectangle') {
-            gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
-            gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
+            gl.drawArrays(gl.POINTS, j, 4);
+            gl.drawArrays(gl.TRIANGLE_STRIP, j, 4);
             j += 4;
         } else if (allShapes[i].type === 'polygon') {
             gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
@@ -184,9 +187,9 @@ function render() {
             gl.drawArrays(gl.TRIANGLE_STRIP, j, allShapes[i].vertices.length);
             j += allShapes[i].vertices.length;
         } else if (allShapes[i].type === 'line') {
-            gl.drawArrays(gl.POINTS, j, allShapes[i].vertices.length);
-            gl.drawArrays(gl.LINES, j, allShapes[i].vertices.length);
-            j += allShapes[i].vertices.length;
+            gl.drawArrays(gl.POINTS, j, 2);
+            gl.drawArrays(gl.LINES, j, 2);
+            j += 2;
         }
     }
 

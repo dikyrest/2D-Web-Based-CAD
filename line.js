@@ -17,17 +17,21 @@ line_button.addEventListener('click', function() {
 });
 
 function makeLine(x, y) {
-    if (lineVertexCount === 0 ) {
-        let vertices = [[x, y]];
-        var colors = [[0,0,0,1]];
-        
-        let line = new Line(vertices, colors);
-        allShapes.push(line);
-    } else {
-        allShapes[allShapes.length-1].vertices.push([x, y]);
-        allShapes[allShapes.length-1].colors.push([0,0,0,1]);
+    let vertices = [];
+    let colors = [];
+
+    for (let i=0; i<2; i++) {
+        vertices.push([x, y]);
+        colors.push([0,0,0,1]);
     }
-    lineVertexCount++;
+
+    let line = new Line(vertices, colors);
+    allShapes.push(line);
+}
+
+function drawLine(x, y) {
+    allShapes[allShapes.length-1].vertices[1][0] = x;
+    allShapes[allShapes.length-1].vertices[1][1] = y;
 }
 
 function resizeLine(indexes, x, y) {
