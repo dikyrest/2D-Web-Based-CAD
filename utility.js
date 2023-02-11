@@ -226,12 +226,10 @@ function addVertex(index) {
         disableButtonsExcept("");
         document.getElementById("add-vertex").textContent = "Save";
         onAddVertexIndex = index;
-        console.log("add vertex at " + index);
     } else {
         enableAllButtons();
         document.getElementById("add-vertex").textContent = "Add Vertex";
         onAddVertexIndex = -1;
-        console.log("salah");
     }
 }
 
