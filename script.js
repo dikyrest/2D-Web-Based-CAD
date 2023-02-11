@@ -65,6 +65,7 @@ let isMoving = "";
 
 let onDragVertexIndex = []; // [shapeIndex, vertexIndex]
 let onMoveShapeIndex = -1; // shapeIndex
+let onAddVertexIndex = -1; // shapeIndex
 
 let polygonVertexCount = 0;
 let polyStripVertexCount = 0;
@@ -141,6 +142,9 @@ canvas.addEventListener('click', function(e) {
         console.log(allShapes);
     } else if (isOnCreate === "poly-strip") {
         makePolyStrip(x, y);
+        console.log(allShapes);
+    } else if (onAddVertexIndex !== -1) {
+        addVertexAt(x, y);
         console.log(allShapes);
     } else if (isNearVertex(x, y)) {
         let indexes = getNearestVertex(x, y);

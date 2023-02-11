@@ -155,8 +155,12 @@ function showVertexProperties(indexes) {
     let b = allShapes[shapeIndex].colors[vertexIndex][2];
 
     let vertexProperties = document.getElementById("properties-container");
-    vertexProperties.innerHTML = "Shape: " + allShapes[shapeIndex].type + "<br>Vertex: " + vertexIndex + "<br>X: " + x + "<br>Y: " + y;
+    vertexProperties.innerHTML = "<b>VERTEX</b><b>Shape:</b> " + allShapes[shapeIndex].type + "<br><b>Vertex:</b> " + vertexIndex + "<br>X: " + x + "<br>Y: " + y;
     vertexProperties.innerHTML += "<br>Color: <input type='color' id='vertex-color' value='" + rgbToHex(r*255, g*255, b*255) + "'>";
+    if (["polygon", "poly-strip"].includes(allShapes[shapeIndex].type)) {
+        vertexProperties.innerHTML += "<br><button id='remove-vertex'>Remove Vertex</button>";
+        document.getElementById("remove-vertex").onclick = function() { removeVertex(indexes); };
+    }
 
     document.getElementById("vertex-color").onchange = function() { changeVertexColor(indexes); };
 }
@@ -166,9 +170,13 @@ function showShapeProperties(index) {
     let y = allShapes[index].center()[1];
 
     let shapeProperties = document.getElementById("properties-container");
-    shapeProperties.innerHTML = "Shape: " + allShapes[index].type + "<br>Center: (" + x + ", " + y + ")";
+    shapeProperties.innerHTML = "<b>SHAPE</b><b>Shape:</b> " + allShapes[index].type + "<br><b>Center:</b> (" + x + ", " + y + ")";
     shapeProperties.innerHTML += "<br>Color: <input type='color' id='shape-color' name='shape-color' value='#000000'>";
     shapeProperties.innerHTML += "<br>Rotation: <input type='range' id='rotation-theta' name='rotation-theta' min='0' max='360' value='" + allShapes[index].theta + "'>";
+    if (["polygon", "poly-strip"].includes(allShapes[index].type)) {
+        shapeProperties.innerHTML += "<br><button id='add-vertex'>Add Vertex</button>";
+        document.getElementById("add-vertex").onclick = function() { addVertex(index); };
+    }
 
     document.getElementById("shape-color").onchange = function() { changeShapeColor(index); };
     document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
@@ -201,4 +209,33 @@ function rotateShape(index) {
     let theta = document.getElementById("rotation-theta").value;
 
     allShapes[index].rotate(theta);
+}
+
+function removeVertex(indexes) {
+    let shapeIndex = indexes[0];
+    let vertexIndex = indexes[1];
+
+    if (allShapes[shapeIndex].vertices.length > 3) {
+        allShapes[shapeIndex].vertices.splice(vertexIndex, 1);
+        allShapes[shapeIndex].colors.splice(vertexIndex, 1);
+    }
+}
+
+function addVertex(index) {
+    if (onAddVertexIndex === -1) {
+        disableButtonsExcept("");
+        document.getElementById("add-vertex").textContent = "Save";
+        onAddVertexIndex = index;
+        console.log("add vertex at " + index);
+    } else {
+        enableAllButtons();
+        document.getElementById("add-vertex").textContent = "Add Vertex";
+        onAddVertexIndex = -1;
+        console.log("salah");
+    }
+}
+
+function addVertexAt(x, y) {
+    allShapes[onAddVertexIndex].vertices.push([x, y]);
+    allShapes[onAddVertexIndex].colors.push([0, 0, 0, 1]);
 }
