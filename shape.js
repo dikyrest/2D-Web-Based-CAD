@@ -1,8 +1,8 @@
 class Shape {
-    constructor(type, vertices, colors) {
+    constructor(type, vertices, colors, theta) {
         this.id = allShapes.length;
         this.type = type;
-        this.theta = 0;
+        this.theta = theta;
         this.vertices = vertices;
         this.colors = colors;
     }
@@ -26,13 +26,13 @@ class Shape {
             this.vertices[i][1] = center[1] + x * Math.sin(dtheta * Math.PI/180) + y * Math.cos(dtheta * Math.PI/180);
         }
 
-        this.theta = newTheta;
+        this.theta = parseInt(newTheta);
     }
 }
 
 class Line extends Shape {
-    constructor(vertices, colors) {
-        super("line", vertices, colors);
+    constructor(vertices, colors, theta=0) {
+        super("line", vertices, colors, theta);
     }
 
     center() {
@@ -47,8 +47,8 @@ class Line extends Shape {
 }
 
 class Rectangle extends Shape {
-    constructor(vertices, colors) {
-        super("rectangle", vertices, colors);
+    constructor(vertices, colors, theta=0) {
+        super("rectangle", vertices, colors, theta);
     }
 
     center() {
@@ -67,8 +67,8 @@ class Rectangle extends Shape {
 }
 
 class Square extends Shape {
-    constructor(vertices, colors) {
-        super("square", vertices, colors);
+    constructor(vertices, colors, theta=0) {
+        super("square", vertices, colors, theta);
     }
 
     center() {
@@ -83,8 +83,8 @@ class Square extends Shape {
 }
 
 class Polygon extends Shape {
-    constructor(vertices, colors) {
-        super("polygon", vertices, colors);
+    constructor(vertices, colors, theta=0) {
+        super("polygon", vertices, colors, theta);
     }
 
     center() {
@@ -101,8 +101,8 @@ class Polygon extends Shape {
 }
 
 class PolyStrip extends Shape {
-    constructor(vertices, colors) {
-        super("poly-strip", vertices, colors);
+    constructor(vertices, colors, theta=0) {
+        super("poly-strip", vertices, colors, theta);
     }
 
     center() {

@@ -16,19 +16,19 @@ import_button.addEventListener('click', function() {
         console.log(data);
         for (let i = 0 ; i < data.length ; i++) {
           if (data[i].type === 'line') {
-            let line = new Line(data[i].vertices, data[i].colors);
+            let line = new Line(data[i].vertices, data[i].colors, data[i].theta);
             allShapes.push(line);
           } else if (data[i].type === 'rectangle') {
-            let rectangle = new Rectangle(data[i].vertices, data[i].colors);
+            let rectangle = new Rectangle(data[i].vertices, data[i].colors, data[i].theta);
             allShapes.push(rectangle);
           } else if (data[i].type === 'square') {
-            let square = new Square(data[i].vertices, data[i].colors);
+            let square = new Square(data[i].vertices, data[i].colors, data[i].theta);
             allShapes.push(square);
           } else if (data[i].type === 'polygon') {
-            let polygon = new Polygon(data[i].vertices, data[i].colors);
+            let polygon = new Polygon(data[i].vertices, data[i].colors, data[i].theta);
             allShapes.push(polygon);
           } else if (data[i].type === 'poly-strip') {
-            let polyStrip = new PolyStrip(data[i].vertices, data[i].colors);
+            let polyStrip = new PolyStrip(data[i].vertices, data[i].colors, data[i].theta);
             allShapes.push(polyStrip);
           }
         } 
