@@ -109,6 +109,8 @@ canvas.addEventListener('mousemove', function(e) {
         resizeLine(onDragVertexIndex, x, y);
     } else if (isDragging === "rectangle") {
         resizeRectangle(onDragVertexIndex, x, y);
+    } else if (isDragging === "square") {
+        resizeSquare(onDragVertexIndex, x, y);
     } else if (isDragging === "polygon") {
         resizePolygon(onDragVertexIndex, x, y);
     } else if (isDragging === "poly-strip") {
