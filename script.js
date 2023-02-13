@@ -115,10 +115,12 @@ canvas.addEventListener('mousemove', function(e) {
         resizePolygon(onDragVertexIndex, x, y);
     } else if (isDragging === "poly-strip") {
         resizePolyStrip(onDragVertexIndex, x, y);
-    } else if (isMoving === "rectangle") {
-        moveRectangle(onMoveShapeIndex, x, y);
     } else if (isMoving === "line") {
         moveLine(onMoveShapeIndex, x, y);
+    } else if (isMoving === "rectangle") {
+        moveRectangle(onMoveShapeIndex, x, y);
+    } else if (isMoving === "square") {
+        moveSquare(onMoveShapeIndex, x, y);
     } else if (isMoving === "polygon") {
         movePolygon(onMoveShapeIndex, x, y);
     } else if (isMoving === "poly-strip") {

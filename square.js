@@ -68,3 +68,9 @@ function resizeSquare(indexes, x, y) {
         allShapes[shape_index].vertices[mod(vertex_index - 2, 4)][1] = start[1] + (edge * Math.sign(width));
     }
 }
+
+function moveSquare(shape_index, x, y) {
+    let dx = x - allShapes[shape_index].center()[0];
+    let dy = y - allShapes[shape_index].center()[1];
+    allShapes[shape_index].move(dx, dy);
+}
