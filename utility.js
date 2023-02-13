@@ -72,15 +72,15 @@ function getAllCenters() {
 }
 
 function disableButtonsExcept(buttonId) {
-    for (button of buttons) {
-        if (button.id != buttonId) {
+    for (let button of buttons) {
+        if (button.id !== buttonId) {
             button.disabled = true;
         }
     }
 }
 
 function enableAllButtons() {
-    for (button of buttons) {
+    for (let button of buttons) {
         button.disabled = false;
     }
 }
