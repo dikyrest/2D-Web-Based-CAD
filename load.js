@@ -1,16 +1,16 @@
 const import_button = document.getElementById('import');
 
 import_button.addEventListener('click', function() {
-  var src = document.getElementById("filesource");
+  const src = document.getElementById("filesource");
 
   if (src.files.length === 0) {
     alert('Tidak ada file yang dipilih!')
   } else {
-    var reader = new FileReader();
-    var data;
+    const reader = new FileReader();
+    let data;
   
     reader.readAsText(src.files[0]);
-    reader.onerror = (e) => {console.log("Load error")};
+    reader.onerror = () => {console.log("Load error")};
     reader.onload  = (e) => {
         data = (JSON.parse(e.target.result));
         console.log(data);
