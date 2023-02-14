@@ -177,14 +177,14 @@ function showShapeProperties(index) {
 
     if (allShapes[index].type === "line") {
         let length = allShapes[index].calcLength();
-        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='line-length' value=" + length + ">";
+        shapeProperties.innerHTML += "<b>Length:</b> " + length;
     } else if (allShapes[index].type === "square") {
         let sideLength = allShapes[index].calcSideLength();
-        shapeProperties.innerHTML += "<b>Side Length:</b> <input type='number' id='square-length' value=" + sideLength + ">";
+        shapeProperties.innerHTML += "<b>Side Length:</b> <input type='number' id='square-length' value=" + sideLength + ">" + "<div><button id='save-length'>Save</button></div>";
     } else if (allShapes[index].type === "rectangle") {
         let length = allShapes[index].calcLength();
         let width = allShapes[index].calcWidth();
-        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='rectangle-length' value=" + length + "> <b>Width:</b> <input type='number' id='rectangle-width' value=" + width + ">";
+        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='rectangle-length' value=" + length + "> <b>Width:</b> <input type='number' id='rectangle-width' value=" + width + ">" + "<div><button id='save-length'>Save</button></div>";
     } else if (["polygon", "poly-strip"].includes(allShapes[index].type)) {
         shapeProperties.innerHTML += "<div><button id='add-vertex'>Add Vertex</button></div>";
         document.getElementById("add-vertex").onclick = function() { addVertex(index); };
@@ -193,6 +193,13 @@ function showShapeProperties(index) {
     document.getElementById("shape-color").onchange = function() { changeShapeColor(index); };
     document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
     document.getElementById("remove-shape").onclick = function() { removeShape(index); };
+    document.getElementById("save-length").onclick = function() {
+        if (allShapes[index].type ==="square") {
+            changeSizeSquare(index);
+        } else {
+            changeSizeRectangle(index);
+        }
+    };
 }
 
 function changeVertexColor(indexes) {
@@ -216,6 +223,48 @@ function changeShapeColor(index) {
     for (let i=0; i<allShapes[index].colors.length; i++) {
         allShapes[index].colors[i] = [r/255, g/255, b/255, 1];
     }
+}
+
+function changeSizeRectangle(index){
+    let length = document.getElementById("rectangle-length").value;
+    let width = document.getElementById("rectangle-width").value;
+
+    if (allShapes[index].vertices[1][1] < allShapes[index].vertices[0][1]) {
+        allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] - parseFloat(width);
+        allShapes[index].vertices[3][1] = allShapes[index].vertices[0][1] - parseFloat(width);
+    } else {
+        allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] + parseFloat(width);
+        allShapes[index].vertices[3][1] = allShapes[index].vertices[0][1] + parseFloat(width);
+    }
+    
+    if (allShapes[index].vertices[2][0] < allShapes[index].vertices[0][0]) {
+        allShapes[index].vertices[2][0] = allShapes[index].vertices[0][0] - parseFloat(length);
+        allShapes[index].vertices[3][0] = allShapes[index].vertices[0][0] - parseFloat(length);
+    } else {
+        allShapes[index].vertices[2][0] = allShapes[index].vertices[0][0] + parseFloat(length);
+        allShapes[index].vertices[3][0] = allShapes[index].vertices[0][0] + parseFloat(length);
+    }
+}
+
+function changeSizeSquare(index){
+    let length = document.getElementById("square-length").value;
+
+    if (allShapes[index].vertices[1][1] < allShapes[index].vertices[0][1]) {
+        allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] - parseFloat(length);
+        allShapes[index].vertices[3][1] = allShapes[index].vertices[0][1] - parseFloat(length);
+    } else {
+        allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] + parseFloat(length);
+        allShapes[index].vertices[3][1] = allShapes[index].vertices[0][1] + parseFloat(length);
+    }
+    
+    if (allShapes[index].vertices[2][0] < allShapes[index].vertices[0][0]) {
+        allShapes[index].vertices[2][0] = allShapes[index].vertices[0][0] - parseFloat(length);
+        allShapes[index].vertices[3][0] = allShapes[index].vertices[0][0] - parseFloat(length);
+    } else {
+        allShapes[index].vertices[2][0] = allShapes[index].vertices[0][0] + parseFloat(length);
+        allShapes[index].vertices[3][0] = allShapes[index].vertices[0][0] + parseFloat(length);
+    }
+
 }
 
 function rotateShape(index) {
