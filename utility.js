@@ -79,9 +79,28 @@ function disableButtonsExcept(buttonId) {
     }
 }
 
+function disableButtonConvexHull() {
+    for (let button of buttons) {
+        if (button.id === 'convex-hull') {
+            button.disabled = true;
+            isConvexHull = false;
+        }
+    }
+}
+
 function enableAllButtons() {
     for (let button of buttons) {
-        button.disabled = false;
+        if (button.id !== 'convex-hull') {
+            button.disabled = false;
+        }
+    }
+}
+
+function enableButtonConvexHull() {
+    for (let button of buttons) {
+        if (button.id === 'convex-hull') {
+            button.disabled = false;
+        }
     }
 }
 
@@ -302,4 +321,15 @@ function addVertexAt(x, y) {
 
 function removeShape(index) {
     allShapes.splice(index, 1);
+}
+
+function pointOrientation(point1, point2, point3){
+    val = (point2[1] - point1[1]) * (point3[0] - point2[0]) - (point2[0] - point1[0]) * (point3[1] - point2[1])
+    if (val == 0){
+        return 0 //collinear
+    }
+    if ( val > 0 ) {
+        return 1 //clock
+    }
+    return 2 //counterlock wise
 }

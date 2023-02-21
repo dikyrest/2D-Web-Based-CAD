@@ -49,6 +49,8 @@ let allCenters = [];
 
 const button_container = document.getElementById('create-button-container');
 const buttons = button_container.getElementsByTagName('button');
+const convexHull_button = document.getElementById('convex-hull');
+let isConvexHull = false;
 
 /*
  * Possible values:
