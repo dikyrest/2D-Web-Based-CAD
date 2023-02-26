@@ -236,8 +236,8 @@ function changeLengthLine(index) {
     let deltaX = allShapes[index].vertices[1][0] - allShapes[index].vertices[0][0];
     let hypotenuse = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
-    allShapes[index].vertices[1][0] = allShapes[index].vertices[0][0] + (deltaX / hypotenuse * length);
-    allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] + (deltaY / hypotenuse * length);
+    allShapes[index].vertices[1][0] = allShapes[index].vertices[0][0] + (deltaX / hypotenuse * parseFloat(length));
+    allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] + (deltaY / hypotenuse * parseFloat(length));
 }
 
 function changeSizeRectangle(index){
