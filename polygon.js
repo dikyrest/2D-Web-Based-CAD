@@ -1,4 +1,5 @@
 const polygon_button = document.getElementById('create-polygon');
+const convexHull_button = document.getElementById('convex-hull');
 
 polygon_button.addEventListener('click', function() {
     if (isOnCreate === "polygon") {
@@ -7,14 +8,14 @@ polygon_button.addEventListener('click', function() {
         if ( isConvexHull ) {
             makePolygonWithConvexHull()
         }
-        disableButtonConvexHull();
         enableAllButtons();
+        convexHull_button.disabled = true;
     } else {
         isOnCreate = "polygon";
         polygonVertexCount = 0;
         polygon_button.textContent = 'Save';
         disableButtonsExcept('create-polygon');
-        enableButtonConvexHull();
+        convexHull_button.disabled = false;
     }
 });
 
@@ -24,7 +25,7 @@ convexHull_button.addEventListener('click', function() {
         alert('Menerapkan convex hull')
     } else {
         isConvexHull = false
-        alert('Tidak menerapkan conex hull')
+        alert('Tidak menerapkan convex hull')
     }
 })
 

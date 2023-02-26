@@ -79,26 +79,9 @@ function disableButtonsExcept(buttonId) {
     }
 }
 
-function disableButtonConvexHull() {
-    for (let button of buttons) {
-        if (button.id === 'convex-hull') {
-            button.disabled = true;
-            isConvexHull = false;
-        }
-    }
-}
-
 function enableAllButtons() {
     for (let button of buttons) {
         if (button.id !== 'convex-hull') {
-            button.disabled = false;
-        }
-    }
-}
-
-function enableButtonConvexHull() {
-    for (let button of buttons) {
-        if (button.id === 'convex-hull') {
             button.disabled = false;
         }
     }

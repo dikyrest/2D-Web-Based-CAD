@@ -32,7 +32,7 @@ button:hover:enabled {
     height: 100vh;
 }
 
-.navigations {
+.left-tools {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -42,11 +42,11 @@ button:hover:enabled {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.tools {
+.right-tools {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
+    width: 35%;
     position: relative;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -57,7 +57,7 @@ button:hover:enabled {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 60%;
+    max-width: 70%;
     gap: 10px;
 }
 

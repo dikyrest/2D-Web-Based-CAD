@@ -7,14 +7,14 @@ poly_strip_button.addEventListener('click', function() {
         if ( isConvexHull ) {
             makePolygonStripStripWithConvexHull()
         }
-        disableButtonConvexHull();
         enableAllButtons();
+        convexHull_button.disabled = true;
     } else {
         isOnCreate = "poly-strip";
         polyStripVertexCount = 0;
         poly_strip_button.textContent = 'Save';
         disableButtonsExcept('create-polygon-strip');
-        enableButtonConvexHull();
+        convexHull_button.disabled = false;
     }
 });
 

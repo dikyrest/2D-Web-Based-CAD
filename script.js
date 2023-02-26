@@ -49,8 +49,6 @@ let allCenters = [];
 
 const button_container = document.getElementById('create-button-container');
 const buttons = button_container.getElementsByTagName('button');
-const convexHull_button = document.getElementById('convex-hull');
-let isConvexHull = false;
 
 /*
  * Possible values:
@@ -64,6 +62,7 @@ let isOnCreate = "";
 let isDrawing = "";
 let isDragging = "";
 let isMoving = "";
+let isConvexHull = false;
 
 let onDragVertexIndex = []; // [shapeIndex, vertexIndex]
 let onMoveShapeIndex = -1; // shapeIndex
