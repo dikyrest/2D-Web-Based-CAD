@@ -86,14 +86,13 @@ function makePolygonWithConvexHull() {
 
         for ( let i = 0 ; i < n ; i++ ) {
             // If i is more counterclockwise than current q, then update q
-            if (pointOrientation(points[p], points[i], points[q]) == 2) {
+            if (pointOrientation(points[p], points[i], points[q]) === 2) {
                 q = i
             }
         }
         // Now q is the most counterclockwise with respect to p. Set p as q for next iteration, so that q is added to result 'hullVertices'
         p = q
-    } while ( p != l ) // While we don't come to first point
+    } while ( p !== l ) // While we don't come to first point
 
-    let polygon = new Polygon(hullVertices, hullColors)
-    allShapes[allShapes.length-1] = polygon
+    allShapes[allShapes.length-1] = new Polygon(hullVertices, hullColors)
 }
