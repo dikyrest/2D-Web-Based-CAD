@@ -179,7 +179,7 @@ function showShapeProperties(index) {
 
     if (allShapes[index].type === "line") {
         let length = allShapes[index].calcLength();
-        shapeProperties.innerHTML += "<b>Length:</b> " + length;
+        shapeProperties.innerHTML += "<b>Length:</b> <input type='number' id='line-length' value=" + length + ">" + "<div><button id='save-length'>Save</button></div>";
     } else if (allShapes[index].type === "square") {
         let sideLength = allShapes[index].calcSideLength();
         shapeProperties.innerHTML += "<b>Side Length:</b> <input type='number' id='square-length' value=" + sideLength + ">" + "<div><button id='save-length'>Save</button></div>";
@@ -196,9 +196,11 @@ function showShapeProperties(index) {
     document.getElementById("rotation-theta").onchange = function() { rotateShape(index); };
     document.getElementById("remove-shape").onclick = function() { removeShape(index); };
     document.getElementById("save-length").onclick = function() {
-        if (allShapes[index].type ==="square") {
+        if (allShapes[index].type === "line") {
+            changeLengthLine(index);
+        } else if (allShapes[index].type === "square") {
             changeSizeSquare(index);
-        } else {
+        } else if (allShapes[index].type === "rectangle") {
             changeSizeRectangle(index);
         }
     };
@@ -225,6 +227,17 @@ function changeShapeColor(index) {
     for (let i=0; i<allShapes[index].colors.length; i++) {
         allShapes[index].colors[i] = [r/255, g/255, b/255, 1];
     }
+}
+
+function changeLengthLine(index) {
+    let length = document.getElementById("line-length").value;
+
+    let deltaY = allShapes[index].vertices[1][1] - allShapes[index].vertices[0][1];
+    let deltaX = allShapes[index].vertices[1][0] - allShapes[index].vertices[0][0];
+    let hypotenuse = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+    allShapes[index].vertices[1][0] = allShapes[index].vertices[0][0] + (deltaX / hypotenuse * length);
+    allShapes[index].vertices[1][1] = allShapes[index].vertices[0][1] + (deltaY / hypotenuse * length);
 }
 
 function changeSizeRectangle(index){
