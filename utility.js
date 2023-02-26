@@ -324,11 +324,11 @@ function removeShape(index) {
 }
 
 function pointOrientation(point1, point2, point3){
-    val = (point2[1] - point1[1]) * (point3[0] - point2[0]) - (point2[0] - point1[0]) * (point3[1] - point2[1])
-    if (val == 0){
+    let test = (point2[1] - point1[1]) * (point3[0] - point2[0]) - (point2[0] - point1[0]) * (point3[1] - point2[1])
+    if (test === 0){
         return 0 //collinear
     }
-    if ( val > 0 ) {
+    if ( test > 0 ) {
         return 1 //clock
     }
     return 2 //counterlock wise
